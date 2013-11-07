@@ -23,6 +23,10 @@ void bloom_free(bloom*);
 void bloom_add(bloom*, char const *);
 bool bloom_contains(bloom const *, char const *);
 
+#define bloom_add_all(in, ...) \
+  for (const char **it = (const char*[]){__VA_ARGS__, NULL}; *it; ++it) \
+    bloom_add(in, *it);
+
 bloom* bloom_union(bloom const *, bloom const *);
 bloom* bloom_intersect(bloom const *, bloom const *);
 
